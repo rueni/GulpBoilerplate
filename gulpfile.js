@@ -11,16 +11,16 @@ var settings = {
   distFolder: 'dist/'
 };
 
-// default gulp task
-gulp.task('default', function(){
-  return gulp.src([settings.scriptsFolder + 'lib/*.js', settings.scriptsFolder + 'app/*.js'])
-  .pipe(concat('distribution-app.js'))
-  .pipe(uglify()) // comment out uglify for debugging OR during development
-  .pipe(gulp.dest(settings.distFolder));
-});
-
 // watch for changes
 watch([settings.scriptsFolder + 'app/*.js'], function() {
   console.log('script change detected - rebundling')
   gulp.start('default'); // run default task when changes occure
+});
+
+// default gulp task
+gulp.task('default', function() {
+  return gulp.src([settings.scriptsFolder + 'lib/jquery.js', settings.scriptsFolder + 'app/*.js'])
+    .pipe(concat('distribution-app.js'))
+    .pipe(uglify()) // comment out uglify for debugging OR development
+    .pipe(gulp.dest(settings.distFolder));
 });
